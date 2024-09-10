@@ -1,0 +1,99 @@
+class PerfilProfissional:
+    def __init__(self, nome, cargo, experiencia, setor, curso_atual, cursos, habilidades, linkedin):
+        self.nome = nome
+        self.cargo = cargo
+        self.experiencia = experiencia
+        self.setor = setor
+        self.curso_atual = curso_atual
+        self.cursos = cursos
+        self.habilidades = habilidades
+        self.linkedin = linkedin
+
+    def gerar_html(self):
+        cursos_formatados = "".join([f"<li>{curso}</li>" for curso in self.cursos])
+        habilidades_formatadas = "".join([f"<li>{habilidade}: {nivel}%</li>" for habilidade, nivel in self.habilidades.items()])
+        
+        html_content = f"""
+        <html>
+        <head>
+            <title>Perfil Profissional - {self.nome}</title>
+            <style>
+                body {{
+                    background-color: #2D2D2D;
+                    color: #FFFFFF;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    padding: 50px;
+                }}
+                h1 {{
+                    color: #E9B8AC;
+                    font-size: 36px;
+                }}
+                h2 {{
+                    color: #B5C5C5;
+                    font-size: 24px;
+                    margin-top: 40px;
+                }}
+                ul {{
+                    list-style-type: none;
+                    padding: 0;
+                    color: #B5C5C5;
+                }}
+                p {{
+                    font-size: 18px;
+                    margin: 20px 0;
+                }}
+                button {{
+                    background-color: #E9B8AC;
+                    border: none;
+                    padding: 10px 20px;
+                    color: #2D2D2D;
+                    font-size: 16px;
+                    cursor: pointer;
+                }}
+                button:hover {{
+                    background-color: #D89A96;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>{self.nome}</h1>
+            <p><strong>Cargo:</strong> {self.cargo}</p>
+            <p><strong>Experiência:</strong> {self.experiencia} anos no {self.setor}</p>
+            <p><strong>Curso Atual:</strong> {self.curso_atual}</p>
+            
+            <h2>Cursos</h2>
+            <ul>
+                {cursos_formatados}
+            </ul>
+            
+            <h2>Habilidades de Programação</h2>
+            <ul>
+                {habilidades_formatadas}
+            </ul>
+            
+            <p><a href="{self.linkedin}" target="_blank"><button>LinkedIn Perfil</button></a></p>
+        </body>
+        </html>
+        """
+        
+        return html_content
+
+    def salvar_html(self, arquivo):
+        with open(arquivo, 'w') as f:
+            f.write(self.gerar_html())
+
+# Criando o perfil
+perfil_luana = PerfilProfissional(
+    nome="Luana Branco da Costa",
+    cargo="Analista de Dados",
+    experiencia=4,
+    setor="serviço público de saúde",
+    curso_atual="Análise e Desenvolvimento de Sistemas",
+    cursos=["Graduação em Biomedicina", "Mestrado em Ciências - Foco em Epidemiologia", "Análise e Desenvolvimento de Sistemas"],
+    habilidades={"Python": 86, "Linguagem R": 24, "SQL": 86},
+    linkedin="https://www.linkedin.com/in/luanacosta015/"
+)
+
+# Salvando o perfil como arquivo HTML
+perfil_luana.salvar_html("perfil_luana.html")
